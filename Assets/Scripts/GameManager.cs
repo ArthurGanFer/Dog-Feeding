@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI gameTitle;
     public TextMeshProUGUI gameOver;
+    public int difficulty = 0;//0 = easy; 1 = medium; 2 = hard
 
     // Start is called before the first frame update
     void Start()
@@ -26,8 +27,9 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void StartGame()
+    public void StartGame(int difficulty)
     {
+        this.difficulty = difficulty;
         SetGameStatus(true);
         StartCoroutine(SpawnTargets());
         gameTitle.gameObject.SetActive(false);
@@ -48,7 +50,7 @@ public class GameManager : MonoBehaviour
     {
         while (isGameActive)
         {
-            yield return new WaitForSeconds(spawnRate);
+            yield return new WaitForSeconds(spawnRate / (difficulty+1));
             spawnManager.SpawnRandomDog();
         }
     }
