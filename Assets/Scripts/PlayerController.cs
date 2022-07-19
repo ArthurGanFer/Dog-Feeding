@@ -9,11 +9,12 @@ public class PlayerController : MonoBehaviour
     public float xBoundaries;
 
     public GameObject projectilePrefab;
+    private GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -30,13 +31,18 @@ public class PlayerController : MonoBehaviour
             //Right boundary
             transform.position = new Vector3(xBoundaries, transform.position.y, transform.position.z);
         }
-        horizontalInput = Input.GetAxis("Horizontal");
-        transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speed);
 
-        //Firing projectile prefab
-        if (Input.GetKeyDown(KeyCode.Space))
+        //Player move
+        if (gameManager.GetGameActive())
         {
-            Instantiate(projectilePrefab, transform.position, transform.rotation);
+            horizontalInput = Input.GetAxis("Horizontal");
+            transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speed);
+
+            //Firing projectile prefab
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Instantiate(projectilePrefab, transform.position, transform.rotation);
+            }
         }
 
     }
