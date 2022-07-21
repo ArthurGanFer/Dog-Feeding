@@ -25,14 +25,13 @@ public class DestroyOutOfBounds : MonoBehaviour
         //if dog goes past boundaries
         else if (transform.position.z < lowerBound)
         {
-            Debug.Log("Game Over");
             Destroy(gameObject);
-            gameManager.SetGameStatus(false);
+            gameManager.AddLife(-3);
+            gameManager.gameAudio.PlayOneShot(gameManager.lifeLoss);
         }
 
         if (!gameManager.GetGameActive())
         {
-            gameManager.GameOver();
             Destroy(gameObject);
         }
     }

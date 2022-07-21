@@ -22,6 +22,8 @@ public class DetectCollisions : MonoBehaviour
         if (other.gameObject.CompareTag("Bone"))
         {
             gameManager.AddScore(1);
+            gameManager.AddLife(1);
+            gameManager.gameAudio.PlayOneShot(gameManager.scoreAudio);
         }
         Destroy(gameObject);
         Destroy(other.gameObject);
